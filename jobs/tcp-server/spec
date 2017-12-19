@@ -14,4 +14,4 @@ properties:
     default: ":8000"
   http_addr:
     description: "The address for the HTTP listener to bind to."
-    default: ":80"
+    default: ":8080"

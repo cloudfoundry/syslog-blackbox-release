@@ -17,8 +17,8 @@ type CountGetter func(id string) (primers, messages int)
 func NewRouter(getter CountGetter) http.Handler {
 	r := mux.NewRouter()
 
-	r.Handle("/get/{id}", nil).Methods(http.MethodGet)
-	r.Handle("/get-prime/{id}", nil).Methods(http.MethodGet)
+	r.Handle("/get/{id}", MessageCountHandler(getter)).Methods(http.MethodGet)
+	r.Handle("/get-prime/{id}", PrimeCountHandler(getter)).Methods(http.MethodGet)
 
 	return handlers.LoggingHandler(os.Stdout, r)
 }
@@ -34,7 +34,7 @@ func MessageCountHandler(getter CountGetter) http.Handler {
 
 		_, msgs := getter(id)
 
-		fmt.Fprintf(w, "%d", msgs)
+		w.Write([]byte(fmt.Sprint(msgs)))
 	})
 }
 
@@ -49,6 +49,6 @@ func PrimeCountHandler(getter CountGetter) http.Handler {
 
 		primers, _ := getter(id)
 
-		fmt.Fprintf(w, "%d", primers)
+		w.Write([]byte(fmt.Sprint(primers)))
 	})
 }

@@ -21,6 +21,8 @@ func NewCounter() *Counter {
 // ID.
 func (c *Counter) Add(id string, primers, msgs int) {
 	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	ct, ok := c.counts[id]
 	if !ok {
 		ct = &count{}
@@ -30,18 +32,18 @@ func (c *Counter) Add(id string, primers, msgs int) {
 	ct.primers += primers
 	ct.messages += msgs
 
-	c.mu.Unlock()
 }
 
 // Counts will return the primer and message counts for a given ID.
 func (c *Counter) Counts(id string) (primers, messages int) {
 	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	ct, ok := c.counts[id]
 	if !ok {
 		return 0, 0
 	}
 	primers, messages = ct.primers, ct.messages
-	c.mu.Unlock()
 
 	return primers, messages
 }
