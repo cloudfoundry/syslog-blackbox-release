@@ -1,0 +1,5 @@
+check process tcp-server
+  with pidfile /var/vcap/sys/run/tcp-server/tcp-server.pid
+  start program "/var/vcap/jobs/tcp-server/bin/ctl start"
+  stop program "/var/vcap/jobs/tcp-server/bin/ctl stop"
+  group vcap

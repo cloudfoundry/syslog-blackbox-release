@@ -1,0 +1,15 @@
+---
+name: tcp-server
+
+dependencies:
+- golang1.9.2
+
+files:
+- code.cloudfoundry.org/go-envstruct/*.go # gosub
+- code.cloudfoundry.org/rfc5424/*.go # gosub
+- code.cloudfoundry.org/syslog-blackbox/cmd/tcp-server/*.go # gosub
+- code.cloudfoundry.org/syslog-blackbox/pkg/stat/*.go # gosub
+- code.cloudfoundry.org/syslog-blackbox/pkg/syslog/*.go # gosub
+- code.cloudfoundry.org/syslog-blackbox/pkg/web/*.go # gosub
+- github.com/gorilla/handlers/*.go # gosub
+- github.com/gorilla/mux/*.go # gosub

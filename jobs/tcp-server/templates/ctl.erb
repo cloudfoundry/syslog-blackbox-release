@@ -1,0 +1,52 @@
+#!/bin/bash -e
+
+RUN_DIR=/var/vcap/sys/run/tcp-server
+LOG_DIR=/var/vcap/sys/log/tcp-server
+PIDFILE=${RUN_DIR}/tcp-server.pid
+JOB_DIR=/var/vcap/jobs/tcp-server
+CERT_DIR=$JOB_DIR/config/certs
+
+PACKAGE_DIR=/var/vcap/packages/tcp-server
+ENVIRONMENT=/var/vcap/jobs/tcp-server/bin/environment.sh
+
+case $1 in
+
+  start)
+    set +e
+      killall -15 tcp-server
+      killall -9 tcp-server
+      killall -2 tcp-server
+      killall -3 tcp-server
+    set -e
+
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    cd $PACKAGE_DIR
+
+    ulimit -n 8192
+
+    source $ENVIRONMENT
+    echo $$ > $PIDFILE
+    exec chpst -u vcap:vcap ./tcp-server &>> ${LOG_DIR}/tcp-server.log
+
+    ;;
+
+  stop)
+    set +e
+      killall -15 tcp-server
+      killall -9 tcp-server
+      killall -2 tcp-server
+      killall -3 tcp-server
+    set -e
+
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+
+    ;;
+
+esac

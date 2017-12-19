@@ -1,1 +1,5 @@
 name: syslog-blackbox
+blobstore:
+  provider: s3
+  options:
+    bucket_name: syslog-blackbox-release-blobs

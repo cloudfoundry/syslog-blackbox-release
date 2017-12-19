@@ -1,0 +1,23 @@
+name: syslog-blackbox
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+releases:
+- name: syslog-blackbox
+  version: latest
+
+instance_groups:
+- name: tcp-server
+  azs:
+  - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  networks:
+  - name: default
+  jobs:
+  - name: tcp-server
+    release: syslog-blackbox

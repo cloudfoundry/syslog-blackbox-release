@@ -1,0 +1,17 @@
+---
+name: tcp-server
+
+templates:
+  ctl.erb: bin/ctl
+  environment.sh.erb: bin/environment.sh
+
+packages:
+- tcp-server
+
+properties:
+  syslog_addr:
+    description: "The address for the syslog listener to bind to."
+    default: ":8000"
+  http_addr:
+    description: "The address for the HTTP listener to bind to."
+    default: ":80"

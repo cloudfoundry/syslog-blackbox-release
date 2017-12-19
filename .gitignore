@@ -36,6 +36,8 @@ releases/**/*.tgz
 /src/github.com/mvdan/interfacer
 /src/github.com/mvdan/lint
 /src/honnef.co/go
+/src/github.com/codegangsta/cli
+/src/github.com/vito/gosub
 
 # cert script output
 loggregator-certs
